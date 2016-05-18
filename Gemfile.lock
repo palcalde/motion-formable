@@ -1,0 +1,25 @@
+PATH
+  remote: .
+  specs:
+    motion-forms (1.0)
+
+PATH
+  remote: ~/src/motion-ios-table
+  specs:
+    motion-ios-table (1.0)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    rake (11.1.2)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  motion-forms!
+  motion-ios-table!
+  rake
+
+BUNDLED WITH
+   1.11.2
