@@ -1,7 +1,7 @@
 describe 'Form' do
 
   it "entities from an entity set can be displayed in several sections" do
-    form = MotionForms::Form.new({
+    form = MotionFormable::Form.new({
       controller: self,
       sections: [
         {
@@ -52,7 +52,7 @@ describe 'Form' do
   end
 
   it "section can contain an entity" do
-    form = MotionForms::Form.new({
+    form = MotionFormable::Form.new({
       controller: self,
       sections: [
         {
@@ -119,7 +119,7 @@ describe 'Form' do
       ]
     }
 
-    form = MotionForms::Form.new({
+    form = MotionFormable::Form.new({
       controller: self,
       sections: [
         {
@@ -150,7 +150,7 @@ describe 'Form' do
   end
 
   it "can fetch row by index" do
-    form = MotionForms::Form.new({
+    form = MotionFormable::Form.new({
       sections: [
         {
           rows: [
@@ -165,7 +165,7 @@ describe 'Form' do
   end
 
   it "can fetch index by row" do
-    form = MotionForms::Form.new({
+    form = MotionFormable::Form.new({
       sections: [
         {
           rows: [
@@ -180,7 +180,7 @@ describe 'Form' do
   end
 
   it "can fetch next and previous row" do
-    form = MotionForms::Form.new({
+    form = MotionFormable::Form.new({
       sections: [
         {
           rows: [
@@ -207,7 +207,7 @@ describe 'Form' do
   end
 
   it "can insert, delete and move rows" do
-    form = MotionForms::Form.new({
+    form = MotionFormable::Form.new({
       sections: [
         {
           rows: [
@@ -238,7 +238,7 @@ describe 'Form' do
   end
 
   it "can insert, delete and move sections" do
-    form = MotionForms::Form.new({
+    form = MotionFormable::Form.new({
       sections: [
         {
           rows: [

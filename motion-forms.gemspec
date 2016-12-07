@@ -2,7 +2,7 @@
 VERSION = "1.0"
 
 Gem::Specification.new do |spec|
-  spec.name          = "motion-forms"
+  spec.name          = "motion-formable"
   spec.version       = VERSION
   spec.authors       = ["Mark Villacampa"]
   spec.email         = ["m@markvillacampa.com"]

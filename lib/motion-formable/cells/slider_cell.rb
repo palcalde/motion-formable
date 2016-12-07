@@ -8,7 +8,7 @@
 #
 # /images/cells/slider_cell.gif
 #
-module MotionForms
+module MotionFormable
   class SliderCell < BaseCell
     attr_accessor :slider, :text_label, :steps, :min, :max
 

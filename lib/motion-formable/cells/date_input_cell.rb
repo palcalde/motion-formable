@@ -2,6 +2,14 @@
 # A cell which shows a date picker view to pick a date, time, datetime or coundown.
 #
 # ┌──────────────────────┐
+# │ Title           Date │
+# └──────────────────────┘
+#
+# On tap shows a date picker:
+#
+# ┌──────────────────────┐
+# │⟨ ⟩              Done │
+# ├──────────────────────┤
 # │ April     28    2014 │
 # │ May       29    2015 │
 # ├──────────────────────┤
@@ -11,10 +19,10 @@
 # │ August     1    2018 │
 # └──────────────────────┘
 #
-# /images/cells/date_picker_cell.gif
+# /images/cells/date_input_cell.gif
 #
-module MotionForms
-  class DatePickerCell < BaseCell
+module MotionFormable
+  class DateInputCell < BaseCell
     attr_accessor :date_picker,
                   :date_picker_mode,
                   :minute_interval,
@@ -28,22 +36,27 @@ module MotionForms
       self.date_picker.minuteInterval = self.minute_interval if self.minute_interval
       self.date_picker.minimumDate = self.minimum_date if self.minimum_date
       self.date_picker.maximumDate = self.maximum_date if self.maximum_date
-      self.date_picker.translatesAutoresizingMaskIntoConstraints = false
-      self.date_picker.delegate = self
-      self.contentView.addSubview(self.date_picker)
-      self.contentView.addConstraint(NSLayoutConstraint.constraintWithItem(self.date_picker,
-        attribute:NSLayoutAttributeCenterX, relatedBy:NSLayoutRelationEqual,
-        toItem:self.contentView, attribute:NSLayoutAttributeCenterX, multiplier:1, constant:0))
-      views = { "pickerView" => self.date_picker }
-      self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-0-[pickerView]-0-|",
-        options:0, metrics:0, views:views))
-      self.row.cell[:height] = 216
     end
 
     def update!
-      disabled = self.row.disabled?
-      self.userInteractionEnabled = !disabled
-      self.contentView.alpha = disabled ? 0.5 : 1.0
+      self.accessoryType = UITableViewCellAccessoryNone
+      self.editingAccessoryType = UITableViewCellAccessoryNone
+      self.textLabel.text = self.row.title if self.row.title
+      self.selectionStyle = self.row.disabled? ? UITableViewCellSelectionStyleNone : UITableViewCellSelectionStyleDefault
+      self.detailTextLabel.text = date_formatted
+    end
+
+    def on_select
+      self.becomeFirstResponder
+      self.setSelected(false, animated: true)
+    end
+
+    def canBecomeFirstResponder
+      !self.row.disabled?
+    end
+
+    def inputView
+      date_picker
     end
 
     def date_formatted
@@ -64,6 +77,15 @@ module MotionForms
 
     def datePickerValueChanged(datePicker)
       fields.first.value = datePicker.date
+      update!
+    end
+
+    def highlight
+      self.detailTextLabel.textColor = self.tintColor
+    end
+
+    def unhighlight
+      self.detailTextLabel.textColor = UIColor.blackColor
     end
   end
 end

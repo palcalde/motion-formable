@@ -1,4 +1,4 @@
-module MotionForms
+module MotionFormable
   class Row
     attr_accessor :fields,
                   :cell,

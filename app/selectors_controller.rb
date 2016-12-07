@@ -1,6 +1,6 @@
 class SelectorsController < UITableViewController
   include MotionIOSTable::TableHelper
-  include MotionForms::FormHelper
+  include MotionFormable::FormHelper
 
   def viewDidLoad
     self.tableView.delegate = self
@@ -25,7 +25,7 @@ class SelectorsController < UITableViewController
   end
 
   def form
-    @form ||= MotionForms::Form.new({
+    @form ||= MotionFormable::Form.new({
       controller: self,
       sections: [
         {
@@ -63,7 +63,7 @@ class SelectorsController < UITableViewController
             {
               fields: [{ key: :sheet, value: 1 }],
               cell: {
-                class: MotionForms::SheetCell,
+                class: MotionFormable::SheetCell,
                 type: UITableViewCellStyleValue1,
                 textLabel: { text: 'Sheet' },
                 options: [
@@ -78,7 +78,7 @@ class SelectorsController < UITableViewController
             {
               fields: [{ key: :alert, value: 1 }],
               cell: {
-                class: MotionForms::AlertCell,
+                class: MotionFormable::AlertCell,
                 type: UITableViewCellStyleValue1,
                 textLabel: { text: 'Alert View' },
                 options: [
@@ -93,7 +93,7 @@ class SelectorsController < UITableViewController
             {
               fields: [{ key: :picker_input, value: 1 }],
               cell: {
-                class: MotionForms::PickerInputCell,
+                class: MotionFormable::PickerInputCell,
                 type: UITableViewCellStyleValue1,
                 textLabel: { text: 'Picker View' },
                 options: [
@@ -115,7 +115,7 @@ class SelectorsController < UITableViewController
             {
               fields: [{ key: :picker, value: 1 }],
               cell: {
-                class: MotionForms::PickerCell,
+                class: MotionFormable::PickerCell,
                 options: [
                   { title: 'Option 1', value: 1 },
                   { title: 'Option 2', value: 2 },

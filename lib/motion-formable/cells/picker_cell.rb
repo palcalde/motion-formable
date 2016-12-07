@@ -13,7 +13,7 @@
 #
 # /images/cells/picker_cell.gif
 #
-module MotionForms
+module MotionFormable
   class PickerCell < BaseCell
     attr_accessor :options, :picker_view
 

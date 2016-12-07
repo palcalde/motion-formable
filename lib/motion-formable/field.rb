@@ -1,4 +1,4 @@
-module MotionForms
+module MotionFormable
   class Field
     # @attr [Symbol]
     attr_accessor :key

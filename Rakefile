@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 $:.unshift("/Library/RubyMotion/lib")
 require 'motion/project/template/ios'
-require './lib/motion-forms'
+require './lib/motion-formable'
 
 begin
   require 'bundler'
@@ -12,6 +12,6 @@ end
 
 Motion::Project::App.setup do |app|
   # Use `rake config' to see complete project settings.
-  app.name = 'motion-forms'
+  app.name = 'motion-formable'
   app.deployment_target = '8.0'
 end

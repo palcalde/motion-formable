@@ -7,7 +7,7 @@
 #
 # /images/cells/textfield_cell.png
 #
-module MotionForms
+module MotionFormable
   class TextFieldCell < BaseCell
     attr_accessor :text_label,
                   :text_field,

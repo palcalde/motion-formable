@@ -9,7 +9,7 @@
 #
 # /images/cells/stepper_cell.gif
 #
-module MotionForms
+module MotionFormable
   class StepperCell < BaseCell
     attr_accessor :step_control, :current_step_value
 

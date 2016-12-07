@@ -17,7 +17,7 @@
 # │       Option 5       │
 # └──────────────────────┘
 #
-module MotionForms
+module MotionFormable
   class Toolbar < UIToolbar
     attr_accessor :previous_button, :next_button, :done_button
 

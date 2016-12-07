@@ -1,6 +1,6 @@
 class OtherCellsController < UITableViewController
   include MotionIOSTable::TableHelper
-  include MotionForms::FormHelper
+  include MotionFormable::FormHelper
 
   def viewDidLoad
     self.tableView.delegate = self
@@ -25,7 +25,7 @@ class OtherCellsController < UITableViewController
   end
 
   def form
-    @form ||= MotionForms::Form.new({
+    @form ||= MotionFormable::Form.new({
       controller: self,
       sections: [
         {
@@ -37,14 +37,14 @@ class OtherCellsController < UITableViewController
               fields: [{ key: :switch, value: true }],
               title: 'Switch',
               cell: {
-                class: MotionForms::SwitchCell,
+                class: MotionFormable::SwitchCell,
               }
             },
             {
               fields: [{ key: :check, value: true }],
               title: 'Check',
               cell: {
-                class: MotionForms::CheckCell,
+                class: MotionFormable::CheckCell,
               }
             },
             {
@@ -52,7 +52,7 @@ class OtherCellsController < UITableViewController
               title: 'Step counter',
               cell: {
                 type: UITableViewCellStyleValue1,
-                class: MotionForms::StepperCell,
+                class: MotionFormable::StepperCell,
               }
             },
             {
@@ -64,7 +64,7 @@ class OtherCellsController < UITableViewController
                   { title: 'Def', value: 'def' },
                   { title: 'Ghi', value: 'Ghi' },
                 ],
-                class: MotionForms::SegmentedCell,
+                class: MotionFormable::SegmentedCell,
               }
             },
             {
@@ -74,7 +74,7 @@ class OtherCellsController < UITableViewController
                 min: 5,
                 max: 20,
                 steps: 3,
-                class: MotionForms::SliderCell,
+                class: MotionFormable::SliderCell,
               }
             },
           ]

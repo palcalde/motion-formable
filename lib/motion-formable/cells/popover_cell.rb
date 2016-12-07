@@ -23,7 +23,7 @@
 #
 # /images/cells/popover_cell.gif
 #
-module MotionForms
+module MotionFormable
   class PopoverCell < BaseCell
     attr_accessor :options, :popover_controller
 

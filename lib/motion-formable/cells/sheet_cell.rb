@@ -22,7 +22,7 @@
 #
 # /images/cells/sheet_cell.gif
 #
-module MotionForms
+module MotionFormable
   class SheetCell < BaseCell
     attr_accessor :options
 

@@ -6,7 +6,7 @@ describe 'Cell' do
       index = NSIndexPath.indexPathForRow(0, inSection:0)
       row = self.controller.form.row_for_index(index)
       cell = self.controller.tableView.cellForRowAtIndexPath(index)
-      cell.class.should == MotionForms::SwitchCell
+      cell.class.should == MotionFormable::SwitchCell
       cell.accessoryView.class.should == UISwitch
       cell.editingAccessoryView.should == cell.accessoryView
       orig_value = row.fields.first.value
@@ -20,7 +20,7 @@ describe 'Cell' do
       index = NSIndexPath.indexPathForRow(1, inSection:0)
       row = self.controller.form.row_for_index(index)
       cell = self.controller.tableView.cellForRowAtIndexPath(index)
-      cell.class.should == MotionForms::CheckCell
+      cell.class.should == MotionFormable::CheckCell
       cell.accessoryType.should == UITableViewCellAccessoryCheckmark
       cell.accessoryType.should == cell.editingAccessoryType
       orig_value = row.fields.first.value
@@ -34,7 +34,7 @@ describe 'Cell' do
       index = NSIndexPath.indexPathForRow(2, inSection:0)
       row = self.controller.form.row_for_index(index)
       cell = self.controller.tableView.cellForRowAtIndexPath(index)
-      cell.class.should == MotionForms::StepperCell
+      cell.class.should == MotionFormable::StepperCell
       orig_value = row.fields.first.value
       cell.current_step_value.text.should == orig_value.to_s
       cell.step_control.value = orig_value + 1
@@ -47,7 +47,7 @@ describe 'Cell' do
       index = NSIndexPath.indexPathForRow(3, inSection:0)
       row = self.controller.form.row_for_index(index)
       cell = self.controller.tableView.cellForRowAtIndexPath(index)
-      cell.class.should == MotionForms::SegmentedCell
+      cell.class.should == MotionFormable::SegmentedCell
       segmented_control = cell.segmented_control
       segmented_control.selectedSegmentIndex = 0
       segmented_control.sendActionsForControlEvents(UIControlEventValueChanged)
@@ -64,7 +64,7 @@ describe 'Cell' do
       index = NSIndexPath.indexPathForRow(4, inSection:0)
       row = self.controller.form.row_for_index(index)
       cell = self.controller.tableView.cellForRowAtIndexPath(index)
-      cell.class.should == MotionForms::SliderCell
+      cell.class.should == MotionFormable::SliderCell
       cell.slider.value = 6
       cell.slider.sendActionsForControlEvents(UIControlEventValueChanged)
       row.fields.first.value.should == 5
@@ -88,7 +88,7 @@ describe 'Cell' do
       index = NSIndexPath.indexPathForRow(0, inSection:0)
       row = self.controller.form.row_for_index(index)
       cell = self.controller.tableView.cellForRowAtIndexPath(index)
-      cell.class.should == MotionForms::TextFieldCell
+      cell.class.should == MotionFormable::TextFieldCell
       cell.text_field.text = "foo"
       cell.text_field.sendActionsForControlEvents(UIControlEventEditingChanged)
       row.fields.first.value.should == "foo"
@@ -98,7 +98,7 @@ describe 'Cell' do
       index = NSIndexPath.indexPathForRow(1, inSection:0)
       row = self.controller.form.row_for_index(index)
       cell = self.controller.tableView.cellForRowAtIndexPath(index)
-      cell.class.should == MotionForms::TextViewCell
+      cell.class.should == MotionFormable::TextViewCell
       cell.text_view.text = "foo"
       cell.text_view.delegate.textViewDidChange(cell.text_view)
       row.fields.first.value.should == "foo"

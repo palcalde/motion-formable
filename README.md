@@ -1,4 +1,4 @@
-# motion-forms
+# motion-formable
 
 TODO: Write a gem description
 
@@ -6,7 +6,7 @@ TODO: Write a gem description
 
 Add this line to your application's Gemfile:
 
-    gem 'motion-forms'
+    gem 'motion-formable'
 
 And then execute:
 
@@ -14,7 +14,7 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install motion-forms
+    $ gem install motion-formable
 
 ## Usage
 

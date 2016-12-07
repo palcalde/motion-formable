@@ -9,7 +9,7 @@
 #
 # /images/cells/switch_cell.png
 #
-module MotionForms
+module MotionFormable
   class SwitchCell < BaseCell
     def on_create
       self.selectionStyle = UITableViewCellSelectionStyleNone

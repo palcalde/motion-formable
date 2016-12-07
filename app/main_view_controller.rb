@@ -1,6 +1,6 @@
 class ViewController < UITableViewController
   include MotionIOSTable::TableHelper
-  # include MotionForms::FormHelper
+  # include MotionFormable::FormHelper
 
   def viewDidLoad
     self.tableView.delegate = self

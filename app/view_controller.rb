@@ -1,6 +1,6 @@
 class ViewController2 < UITableViewController
   include MotionIOSTable::TableHelper
-  include MotionForms::FormHelper
+  include MotionFormable::FormHelper
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i
 
@@ -21,7 +21,7 @@ class ViewController2 < UITableViewController
   end
 
   def form
-    @form ||= MotionForms::Form.new({
+    @form ||= MotionFormable::Form.new({
       controller: self,
       sections: [
         {
@@ -126,7 +126,7 @@ class ViewController2 < UITableViewController
               cell: {
                 textLabel: { text: 'Red' },
                 type: UITableViewCellStyleSubtitle,
-                class: MotionForms::CheckCell,
+                class: MotionFormable::CheckCell,
                 on_select: proc do |_,cell,_|
                   cell.fields.first.value = !cell.fields.first.value
                   cell.update!
@@ -139,7 +139,7 @@ class ViewController2 < UITableViewController
               cell: {
                 textLabel: { text: 'Blue' },
                 type: UITableViewCellStyleSubtitle,
-                class: MotionForms::CheckCell,
+                class: MotionFormable::CheckCell,
                 on_select: proc do |_,cell,_|
                   cell.fields.first.value = !cell.fields.first.value
                   cell.update!
@@ -152,7 +152,7 @@ class ViewController2 < UITableViewController
               cell: {
                 textLabel: { text: 'Green' },
                 type: UITableViewCellStyleSubtitle,
-                class: MotionForms::CheckCell,
+                class: MotionFormable::CheckCell,
                 on_select: proc do |_,cell,_|
                   cell.fields.first.value = !cell.fields.first.value
                   cell.update!

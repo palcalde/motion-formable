@@ -21,7 +21,7 @@
 #
 # /images/cells/alert_cell.gif
 #
-module MotionForms
+module MotionFormable
   class AlertCell < BaseCell
     attr_accessor :options
 

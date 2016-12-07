@@ -10,7 +10,7 @@
 #
 # /images/cells/textview_cell.png
 #
-module MotionForms
+module MotionFormable
   class TextViewCell < BaseCell
     attr_accessor :text_label,
                   :text_view,

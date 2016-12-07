@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    motion-forms (1.0)
+    motion-formable (1.0)
 
 PATH
   remote: ~/src/projects/motion-ios-table
@@ -17,7 +17,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  motion-forms!
+  motion-formable!
   motion-ios-table!
   rake
 

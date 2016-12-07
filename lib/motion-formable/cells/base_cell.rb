@@ -1,4 +1,4 @@
-module MotionForms
+module MotionFormable
   class BaseCell < UITableViewCell
     attr_accessor :row
 

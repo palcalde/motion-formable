@@ -21,7 +21,7 @@
 #
 # /images/cells/picker_input_cell.gif
 #
-module MotionForms
+module MotionFormable
   class PickerInputCell < BaseCell
     attr_accessor :options, :picker_view
 

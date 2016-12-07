@@ -1,4 +1,4 @@
-module MotionForms
+module MotionFormable
   class SelectionSection < Section
     attr_accessor :multiselection
 

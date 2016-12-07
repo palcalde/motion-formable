@@ -1,4 +1,4 @@
-module MotionForms
+module MotionFormable
   module FormHelper
     attr_accessor :form
 

@@ -1,4 +1,4 @@
-module MotionForms
+module MotionFormable
   class Form
     attr_accessor :sections, :controller, :on_save
 

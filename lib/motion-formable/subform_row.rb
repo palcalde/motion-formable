@@ -1,4 +1,4 @@
-module MotionForms
+module MotionFormable
   class SubformRow
     attr_accessor :key, :cell, :section, :subform
 

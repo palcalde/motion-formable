@@ -9,7 +9,7 @@
 #
 # /images/cells/segmented_cell.gif
 #
-module MotionForms
+module MotionFormable
   class SegmentedCell < BaseCell
     attr_accessor :dynamic_constraints, :text_label, :segmented_control, :options
 

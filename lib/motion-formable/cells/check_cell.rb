@@ -7,7 +7,7 @@
 #
 # /images/cells/check_cell.png
 #
-module MotionForms
+module MotionFormable
   class CheckCell < BaseCell
     def update!
       self.textLabel.text = self.row.title if self.row.title

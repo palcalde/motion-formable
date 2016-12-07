@@ -1,6 +1,6 @@
 class DateTimeController < UITableViewController
   include MotionIOSTable::TableHelper
-  include MotionForms::FormHelper
+  include MotionFormable::FormHelper
 
   def viewDidLoad
     self.tableView.delegate = self
@@ -25,7 +25,7 @@ class DateTimeController < UITableViewController
   end
 
   def form
-    @form ||= MotionForms::Form.new({
+    @form ||= MotionFormable::Form.new({
       controller: self,
       sections: [
         {
@@ -36,7 +36,7 @@ class DateTimeController < UITableViewController
             {
               fields: [{ key: :date, value: NSDate.date }],
               cell: {
-                class: MotionForms::DateInputCell,
+                class: MotionFormable::DateInputCell,
                 type: UITableViewCellStyleValue1,
                 textLabel: { text: 'Date' },
                 date_picker_mode: UIDatePickerModeDate
@@ -45,7 +45,7 @@ class DateTimeController < UITableViewController
             {
               fields: [{ key: :date, value: NSDate.date }],
               cell: {
-                class: MotionForms::DateInputCell,
+                class: MotionFormable::DateInputCell,
                 type: UITableViewCellStyleValue1,
                 textLabel: { text: 'Time' },
                 date_picker_mode: UIDatePickerModeTime
@@ -54,7 +54,7 @@ class DateTimeController < UITableViewController
             {
               fields: [{ key: :date, value: NSDate.date }],
               cell: {
-                class: MotionForms::DateInputCell,
+                class: MotionFormable::DateInputCell,
                 type: UITableViewCellStyleValue1,
                 textLabel: { text: 'Date Time' },
                 date_picker_mode: UIDatePickerModeDateAndTime
@@ -63,7 +63,7 @@ class DateTimeController < UITableViewController
             {
               fields: [{ key: :date, value: NSDate.date }],
               cell: {
-                class: MotionForms::DateInputCell,
+                class: MotionFormable::DateInputCell,
                 type: UITableViewCellStyleValue1,
                 textLabel: { text: 'Countdown Timer' },
                 date_picker_mode: UIDatePickerModeCountDownTimer
@@ -80,7 +80,7 @@ class DateTimeController < UITableViewController
               fields: [{ key: :date, value: NSDate.date }],
               disabled: true,
               cell: {
-                class: MotionForms::DateInputCell,
+                class: MotionFormable::DateInputCell,
                 type: UITableViewCellStyleValue1,
                 textLabel: { text: 'Date' },
                 date_picker_mode: UIDatePickerModeDate
@@ -96,7 +96,7 @@ class DateTimeController < UITableViewController
             {
               fields: [{ key: :date, value: NSDate.date }],
               cell: {
-                class: MotionForms::DatePickerCell,
+                class: MotionFormable::DatePickerCell,
                 date_picker_mode: UIDatePickerModeDate
               }
             },

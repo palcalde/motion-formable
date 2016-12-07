@@ -1,4 +1,4 @@
-module MotionForms
+module MotionFormable
   class Section
     attr_accessor :rows,
                   :key,

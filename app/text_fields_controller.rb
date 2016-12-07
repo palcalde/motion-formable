@@ -1,6 +1,6 @@
 class TextFieldsController < UITableViewController
   include MotionIOSTable::TableHelper
-  include MotionForms::FormHelper
+  include MotionFormable::FormHelper
 
   def viewDidLoad
     self.tableView.delegate = self
@@ -17,7 +17,7 @@ class TextFieldsController < UITableViewController
   end
 
   def form
-    @form ||= MotionForms::Form.new({
+    @form ||= MotionFormable::Form.new({
       controller: self,
       sections: [
         {
@@ -27,7 +27,7 @@ class TextFieldsController < UITableViewController
               fields: [{ key: :email, value: 'foo@example.com' }],
               type: :email,
               cell: {
-                class: MotionForms::TextFieldCell,
+                class: MotionFormable::TextFieldCell,
               }
             },
             {
@@ -35,7 +35,7 @@ class TextFieldsController < UITableViewController
               fields: [{ key: :email }],
               type: :email,
               cell: {
-                class: MotionForms::TextViewCell,
+                class: MotionFormable::TextViewCell,
               }
             }
           ]
