@@ -11,7 +11,6 @@
 #
 module MotionForms
   class StepperCell < BaseCell
-
     attr_accessor :step_control, :current_step_value
 
     def on_create
@@ -62,6 +61,5 @@ module MotionForms
       fields.first.value = self.step_control.value.to_i
       self.current_step_value.text = self.step_control.value.to_i.to_s
     end
-
   end
 end

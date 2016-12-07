@@ -24,7 +24,6 @@
 #
 module MotionForms
   class SheetCell < BaseCell
-
     attr_accessor :options
 
     def update!
@@ -42,10 +41,10 @@ module MotionForms
 
         self.options.each do |option|
           alertController.addAction(UIAlertAction.actionWithTitle(option[:title],
-            style:UIAlertActionStyleDefault, handler: proc { |action|
+            style:UIAlertActionStyleDefault, handler: proc do |action|
               fields.first.value = option[:value]
               self.row.section.form.controller.tableView.reloadData
-            }))
+            end))
         end
         controller.presentViewController(alertController, animated:true, completion:nil)
       else
@@ -65,13 +64,11 @@ module MotionForms
     end
 
     def actionSheet(actionSheet, clickedButtonAtIndex:buttonIndex)
-      if actionSheet.cancelButtonIndex != buttonIndex
-        title = actionSheet.buttonTitleAtIndex(buttonIndex)
-        option = self.options.detect { |o| o[:title] == title }
-        fields.first.value = option[:value]
-        self.row.section.form.controller.tableView.reloadData
-      end
+      return unless actionSheet.cancelButtonIndex != buttonIndex
+      title = actionSheet.buttonTitleAtIndex(buttonIndex)
+      option = self.options.detect { |o| o[:title] == title }
+      fields.first.value = option[:value]
+      self.row.section.form.controller.tableView.reloadData
     end
-
   end
 end

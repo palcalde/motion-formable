@@ -39,8 +39,8 @@ module MotionForms
     end
 
     def update!
-      self.accessoryType =  UITableViewCellAccessoryNone
-      self.editingAccessoryType =  UITableViewCellAccessoryNone
+      self.accessoryType = UITableViewCellAccessoryNone
+      self.editingAccessoryType = UITableViewCellAccessoryNone
       self.textLabel.text = self.row.title if self.row.title
       self.selectionStyle = self.row.disabled? ? UITableViewCellSelectionStyleNone : UITableViewCellSelectionStyleDefault
       self.detailTextLabel.text = date_formatted
@@ -69,7 +69,7 @@ module MotionForms
         NSDateFormatter.localizedStringFromDate(date, dateStyle:NSDateFormatterNoStyle, timeStyle:NSDateFormatterShortStyle)
       when UIDatePickerModeCountDownTimer
         time = NSCalendar.currentCalendar.components(NSCalendarUnitHour | NSCalendarUnitMinute, fromDate:date)
-        "%s%s %smin" % [time.hour, time.hour == 1 ? "hour" : "hours", time.minute]
+        format("%s%s %smin", time.hour, time.hour == 1 ? "hour" : "hours", time.minute)
       else # UIDatePickerModeDateAndTime
         NSDateFormatter.localizedStringFromDate(date, dateStyle:NSDateFormatterShortStyle, timeStyle:NSDateFormatterShortStyle)
       end
@@ -87,6 +87,5 @@ module MotionForms
     def unhighlight
       self.detailTextLabel.textColor = UIColor.blackColor
     end
-
   end
 end

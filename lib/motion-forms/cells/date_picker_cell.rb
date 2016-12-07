@@ -15,7 +15,6 @@
 #
 module MotionForms
   class DatePickerCell < BaseCell
-
     attr_accessor :date_picker,
                   :date_picker_mode,
                   :minute_interval,
@@ -57,7 +56,7 @@ module MotionForms
         NSDateFormatter.localizedStringFromDate(date, dateStyle:NSDateFormatterNoStyle, timeStyle:NSDateFormatterShortStyle)
       when UIDatePickerModeCountDownTimer
         time = NSCalendar.currentCalendar.components(NSCalendarUnitHour | NSCalendarUnitMinute, fromDate:date)
-        "%s%s %smin" % [time.hour, time.hour == 1 ? "hour" : "hours", time.minute]
+        format("%s%s %smin", time.hour, time.hour == 1 ? "hour" : "hours", time.minute)
       else # UIDatePickerModeDateAndTime
         NSDateFormatter.localizedStringFromDate(date, dateStyle:NSDateFormatterShortStyle, timeStyle:NSDateFormatterShortStyle)
       end
@@ -66,6 +65,5 @@ module MotionForms
     def datePickerValueChanged(datePicker)
       fields.first.value = datePicker.date
     end
-
   end
 end

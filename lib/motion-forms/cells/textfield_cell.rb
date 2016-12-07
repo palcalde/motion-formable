@@ -50,19 +50,11 @@ module MotionForms
         NSLayoutConstraint.constraintsWithVisualFormat(format, options:0, metrics:nil, views:views)
       end
 
-      if self.imageView.image
-        if self.text_label.text.length > 0
-          self.dynamic_constraints = constraints_block.call("H:[image]-[label]-[textField]-|")
-        else
-          self.dynamic_constraints = constraints_block.call("H:[image]-[textField]-|")
-        end
-      else
-        if self.text_label.text.length > 0
-          self.dynamic_constraints = constraints_block.call("H:|-[label]-[textField]-|")
-        else
-          self.dynamic_constraints = constraints_block.call("H:|-[textField]-|")
-        end
-      end
+      constraints_template = "H:"
+      constraints_template << (self.imageView.image ? "[image]-" : "|-")
+      constraints_template << "[label]-" unless self.text_label.text.empty?
+      constraints_template << "[textField]-|"
+      self.dynamic_constraints = constraints_block.call(constraints_template)
 
       self.dynamic_constraints << NSLayoutConstraint.constraintWithItem(self.text_field,
         attribute: NSLayoutAttributeWidth,
@@ -82,9 +74,9 @@ module MotionForms
 
       case textfield_type
       when :text
-       self.text_field.autocorrectionType = UITextAutocorrectionTypeDefault
-       self.text_field.autocapitalizationType = UITextAutocapitalizationTypeSentences
-       self.text_field.keyboardType = UIKeyboardTypeDefault
+        self.text_field.autocorrectionType = UITextAutocorrectionTypeDefault
+        self.text_field.autocapitalizationType = UITextAutocapitalizationTypeSentences
+        self.text_field.keyboardType = UIKeyboardTypeDefault
       when :name
         self.text_field.autocorrectionType = UITextAutocorrectionTypeNo
         self.text_field.autocapitalizationType = UITextAutocapitalizationTypeWords
@@ -159,11 +151,8 @@ module MotionForms
     end
 
     def textFieldDidChange(textField)
-      if self.text_field.text.length > 0
-        self.fields.first.value = self.text_field.text
-      else
-        self.fields.first.value = nil
-      end
+      text = self.text_field.text.empty? ? nil : self.text_field.text
+      self.fields.first.value = text
     end
   end
 end

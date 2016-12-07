@@ -24,8 +24,7 @@ module MotionForms
     end
 
     # Called when the cell view is going to be reused. Reset all UI state.
-    def prepareForReuse
-    end
+    def prepareForReuse; end
 
     # Called before the cell is displayed. Used to assign the values to UI elements
     def on_display
@@ -44,11 +43,9 @@ module MotionForms
       result
     end
 
-    def highlight
-    end
+    def highlight; end
 
-    def unhighlight
-    end
+    def unhighlight; end
 
     def inputAccessoryView
       row.section.form.controller.navigation_accessory_for_row(row)
@@ -56,17 +53,13 @@ module MotionForms
 
     def textFieldShouldBeginEditing(textField)
       # if the row does not specify a return key type, we set next or go
-      if row.section.form.controller.next_row_for_row(row, :next)
-        textField.returnKeyType = UIReturnKeyNext
-      else
-        textField.returnKeyType = UIReturnKeyDone
-      end
+      has_next_row = row.section.form.controller.next_row_for_row(row, :next)
+      textField.returnKeyType = has_next_row ? UIReturnKeyNext : UIReturnKeyDone
     end
 
     def textFieldShouldReturn(textField)
       # go to the next row or execute the send form block
       row.section.form.controller.navigate_to_direction(:next)
     end
-
   end
 end

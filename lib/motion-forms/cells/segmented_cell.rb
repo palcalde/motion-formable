@@ -37,7 +37,7 @@ module MotionForms
         NSLayoutConstraint.constraintsWithVisualFormat(format, options:options, metrics:nil, views:views)
       end
 
-      if self.text_label.text.length > 0
+      if !self.text_label.text.empty?
         self.dynamic_constraints.concat(constraints_block.call("H:|-[text_label]-16-[segmented_control]-|", NSLayoutFormatAlignAllCenterY))
         self.dynamic_constraints.concat(constraints_block.call("V:|-12-[text_label]-12-|", 0))
       else
@@ -59,20 +59,19 @@ module MotionForms
     def update_segmented_control
       self.segmented_control.removeAllSegments
       self.options.each_with_index do |option, index|
-         self.segmented_control.insertSegmentWithTitle(option[:title], atIndex:index, animated:false)
+        self.segmented_control.insertSegmentWithTitle(option[:title], atIndex:index, animated:false)
       end
     end
 
     def selected_index
-      if value = fields.first.value
-        option = self.options.detect { |o| o[:value] == value }
-        options.index(option)
-      end
+      value = fields.first.value
+      return unless value
+      option = self.options.detect { |o| o[:value] == value }
+      options.index(option)
     end
 
     def value_changed
       fields.first.value = self.options[self.segmented_control.selectedSegmentIndex][:value]
     end
-
   end
 end

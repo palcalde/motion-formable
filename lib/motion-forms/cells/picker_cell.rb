@@ -15,7 +15,6 @@
 #
 module MotionForms
   class PickerCell < BaseCell
-
     attr_accessor :options, :picker_view
 
     def on_create
@@ -34,8 +33,8 @@ module MotionForms
     end
 
     def update!
-      if index = self.selected_index
-        self.picker_view.selectRow(index, inComponent:0, animated:false)
+      if self.selected_index
+        self.picker_view.selectRow(self.selected_index, inComponent:0, animated:false)
       end
       disabled = self.row.disabled?
       self.userInteractionEnabled = !disabled
@@ -45,10 +44,10 @@ module MotionForms
     end
 
     def selected_index
-      if value = fields.first.value
-        option = self.options.detect { |o| o[:value] == value }
-        options.index(option)
-      end
+      value = fields.first.value
+      return unless value
+      option = self.options.detect { |o| o[:value] == value }
+      options.index(option)
     end
 
     def on_select
@@ -83,6 +82,5 @@ module MotionForms
     def pickerView(pickerView, numberOfRowsInComponent:component)
       options ? options.count : 0
     end
-
   end
 end

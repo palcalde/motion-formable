@@ -25,7 +25,6 @@
 #
 module MotionForms
   class PopoverCell < BaseCell
-
     attr_accessor :options, :popover_controller
 
     def update!
@@ -58,6 +57,5 @@ module MotionForms
     def popoverControllerDidDismissPopover(popoverController)
       self.row.section.form.controller.tableView.reloadData
     end
-
   end
 end

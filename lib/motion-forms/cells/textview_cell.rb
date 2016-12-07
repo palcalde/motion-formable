@@ -62,7 +62,7 @@ module MotionForms
       self.text_view.keyboardType = UIKeyboardTypeDefault
       self.text_view.text = fields.first.value
       self.text_view.editable = !self.row.disabled?
-      self.text_view.textColor  = self.row.disabled? ? UIColor.grayColor : UIColor.blackColor
+      self.text_view.textColor = self.row.disabled? ? UIColor.grayColor : UIColor.blackColor
       self.text_label.text = self.row.title if self.row.title
       setNeedsUpdateConstraints
     end
@@ -72,20 +72,19 @@ module MotionForms
     end
 
     def textViewDidEndEditing(textView)
-      if self.text_view.text.length > 0
-        fields.first.value = self.text_view.text
-      else
-        fields.first.value = nil
-      end
+      text = self.text_view.text.empty? ? nil : self.text_view.text
+      self.fields.first.value = text
       unhighlight
     end
 
     def textViewDidChange(textView)
-      if self.text_view.text.length > 0
-        fields.first.value = self.text_view.text
-      else
-        fields.first.value = nil
-      end
+      text = self.text_view.text.empty? ? nil : self.text_view.text
+      self.fields.first.value = text
+    end
+
+    def textFieldShouldClear(textField)
+      self.row.fields.first.value = nil
+      true
     end
 
     def canBecomeFirstResponder

@@ -9,10 +9,10 @@ class UIView
   end
 
   def parent_cell
-    return self if self.is_a?(UITableViewCell)
-    if self.superview && cell = self.superview.parent_cell
-      return cell
+    if self.is_a?(UITableViewCell)
+      self
+    elsif self.superview && self.superview.parent_cell
+      self.superview.parent_cell
     end
-    nil
   end
 end

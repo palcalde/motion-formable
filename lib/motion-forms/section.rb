@@ -14,17 +14,17 @@ module MotionForms
       self.key = opts[:key]
       self.form = opts[:form]
       self.rows = []
-      self.table_options = opts[:table_options] || {}
       if opts[:rows]
         opts[:rows].each do |row|
           row[:section] = self
           self.rows << Row.new(row)
         end
       end
+      self.table_options = opts[:table_options] || {}
     end
 
     def visible_rows
-      self.rows.reject { |r| r.hidden? }
+      self.rows.reject(&:hidden?)
     end
 
     def move_row(from, to)

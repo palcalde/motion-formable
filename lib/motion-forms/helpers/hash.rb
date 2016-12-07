@@ -1,5 +1,4 @@
 class HashHelper
-
   # Used to merge two or more hashes, and merge duplicate keys in an array.
   #
   # Example:
@@ -14,7 +13,7 @@ class HashHelper
   def self.merge_hashes(hashes)
     hash = {}
     hashes.each do |h|
-      h.each do |k,v|
+      h.each do |k, v|
         case hash[k]
         when nil then hash[k] = v
         when Array then  hash[k] << v
@@ -24,5 +23,4 @@ class HashHelper
     end
     hash
   end
-
 end

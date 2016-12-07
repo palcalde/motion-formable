@@ -23,7 +23,6 @@
 #
 module MotionForms
   class PickerInputCell < BaseCell
-
     attr_accessor :options, :picker_view
 
     def on_create
@@ -33,18 +32,18 @@ module MotionForms
     end
 
     def update!
-      if index = self.selected_index
-        self.picker_view.selectRow(index, inComponent:0, animated:false)
+      if self.selected_index
+        self.picker_view.selectRow(self.selected_index, inComponent:0, animated:false)
       end
       selected_option = self.options.detect { |o| o[:value] == fields.first.value }
       self.detailTextLabel.text = selected_option[:title] if selected_option
     end
 
     def selected_index
-      if value = fields.first.value
-        option = self.options.detect { |o| o[:value] == value }
-        options.index(option)
-      end
+      value = fields.first.value
+      return unless value
+      option = self.options.detect { |o| o[:value] == value }
+      options.index(option)
     end
 
     def on_select
@@ -79,7 +78,5 @@ module MotionForms
     def pickerView(pickerView, numberOfRowsInComponent:component)
       options.count
     end
-
   end
 end
-

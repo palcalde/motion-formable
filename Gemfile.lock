@@ -4,7 +4,7 @@ PATH
     motion-forms (1.0)
 
 PATH
-  remote: ~/src/motion-ios-table
+  remote: ~/src/projects/motion-ios-table
   specs:
     motion-ios-table (1.0)
 
@@ -22,4 +22,4 @@ DEPENDENCIES
   rake
 
 BUNDLED WITH
-   1.11.2
+   1.13.6

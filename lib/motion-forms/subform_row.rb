@@ -5,9 +5,7 @@ module MotionForms
     def initialize(opts = {})
       self.cell = opts[:cell] || {}
       self.section = opts[:section]
-      if opts[:subform]
-        self.subform = Form.new(opts[:subform])
-      end
+      self.subform = Form.new(opts[:subform]) if opts[:subform]
       self.cell[:class] ||= BaseCell
     end
 

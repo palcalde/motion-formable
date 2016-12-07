@@ -20,7 +20,7 @@ module MotionForms
 
     def update!
       self.textLabel.text = self.row.title if self.row.title
-      self.switch_control.on = !!self.fields.first.value
+      self.switch_control.on = !self.fields.first.value.nil?
       self.switch_control.enabled = !self.row.disabled?
     end
 

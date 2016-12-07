@@ -4,8 +4,6 @@ module MotionForms
 
     def initialize(opts = {})
       self.sections = []
-      self.controller = opts[:controller]
-      self.on_save = opts[:on_save]
       if opts[:sections]
         opts[:sections].each do |section|
           section[:form] = self
@@ -13,10 +11,12 @@ module MotionForms
           self.sections << klass.new(section)
         end
       end
+      self.controller = opts[:controller]
+      self.on_save = opts[:on_save]
     end
 
     def visible_sections
-      self.sections.reject { |r| r.hidden? }
+      self.sections.reject(&:hidden?)
     end
 
     def errors
@@ -61,12 +61,10 @@ module MotionForms
       row_index = index.row
       section_index = index.section
 
-      if next_row = self.sections[section_index].rows[row_index + 1]
+      if !(next_row = self.sections[section_index].rows[row_index + 1]).nil?
         next_row
-      elsif next_section = self.sections[section_index + 1]
+      elsif !(next_section = self.sections[section_index + 1]).nil?
         next_section.rows.first
-      else
-        nil
       end
     end
 
@@ -79,8 +77,6 @@ module MotionForms
         self.sections[section_index].rows[row_index - 1]
       elsif section_index > 0
         self.sections[section_index - 1].rows.last
-      else
-        nil
       end
     end
 
@@ -110,7 +106,7 @@ module MotionForms
     end
 
     def move_row(from_index, to_index)
-      from_section= sections[from_index.section]
+      from_section = sections[from_index.section]
       to_section = sections[to_index.section]
       from_section.rows[from_index.row], to_section.rows[to_index.row] = to_section.rows[to_index.row], from_section.rows[from_index.row]
       # move row in table

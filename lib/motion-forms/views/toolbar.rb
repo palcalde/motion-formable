@@ -19,19 +19,19 @@
 #
 module MotionForms
   class Toolbar < UIToolbar
-
     attr_accessor :previous_button, :next_button, :done_button
 
     def initWithFrame(frame)
       super([[0, 0], [UIScreen.mainScreen.bounds.size.width, 44.0]])
       self.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin |
-        UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleWidth
+                              UIViewAutoresizingFlexibleRightMargin |
+                              UIViewAutoresizingFlexibleWidth
       self.previous_button = button_with_item(105)
       self.next_button = button_with_item(106)
       self.done_button = button_with_item(UIBarButtonSystemItemDone)
       flexible_space = button_with_item(UIBarButtonSystemItemFlexibleSpace)
       fixed_space = button_with_item(UIBarButtonSystemItemFixedSpace)
-      self.items = [ previous_button, fixed_space, next_button, flexible_space, done_button ]
+      self.items = [previous_button, fixed_space, next_button, flexible_space, done_button]
       self
     end
 

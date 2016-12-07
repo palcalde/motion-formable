@@ -11,10 +11,10 @@ module MotionForms
     end
 
     def navigation_accessory_for_row(row)
-      return nil if !row.cell_instance.canBecomeFirstResponder
+      return unless row.cell_instance.canBecomeFirstResponder
       self.navigation_accessory_view.tap do |view|
-        view.next_button.enabled = !!self.next_row_for_row(row, :next)
-        view.previous_button.enabled = !!self.next_row_for_row(row, :previous)
+        view.next_button.enabled = !self.next_row_for_row(row, :next).nil?
+        view.previous_button.enabled = !self.next_row_for_row(row, :previous).nil?
       end
     end
 
@@ -48,22 +48,18 @@ module MotionForms
           self.tableView.scrollToRowAtIndexPath(index_path, atScrollPosition:UITableViewScrollPositionNone, animated:false)
           cell.becomeFirstResponder
         end
-      else
-        self.form.on_save.call if self.form.on_save
+      elsif self.form.on_save
+        self.form.on_save.call
       end
     end
 
     def next_row_for_row(row, direction)
       next_row = direction == :next ? self.form.next_row(row) : self.form.previous_row(row)
-      index = self.form.index_for_row(row)
-      if next_row
-        if !next_row.disabled? && next_row.cell_instance.canBecomeFirstResponder
-          next_row
-        else
-          next_row_for_row(next_row, direction)
-        end
+      return unless next_row
+      if !next_row.disabled? && next_row.cell_instance.canBecomeFirstResponder
+        next_row
       else
-        nil
+        next_row_for_row(next_row, direction)
       end
     end
   end

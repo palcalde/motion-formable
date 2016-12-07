@@ -18,13 +18,14 @@ module MotionForms
       self.value = opts[:value]
       self.validators = opts[:validators] || []
       self.row = opts[:row]
-      if self.required = opts[:required]
+      if opts[:required]
         self.required_message = opts[:required_message]
         self.validators << {
           block: proc { |value| !value.nil? && !value.to_s.empty? },
           message: opts[:required_message]
         }
       end
+      self.required = opts[:required]
     end
 
     def update_value(value)
@@ -33,10 +34,10 @@ module MotionForms
     end
 
     def errors
-      errors  = []
+      errors = []
       if validators
         validators.each do |validator|
-          errors << validator[:message] if !validator[:block].call(value)
+          errors << validator[:message] unless validator[:block].call(value)
         end
       end
       errors

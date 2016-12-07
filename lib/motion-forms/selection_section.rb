@@ -11,7 +11,7 @@ module MotionForms
           cell: {
             class: CheckCell,
             textLabel: { text: option[:title] },
-            on_select: proc do |_,cell,_|
+            on_select: proc do |_, cell, _|
               if self.multiselection
                 rows.each do |row|
                   row.fields.first.value = false

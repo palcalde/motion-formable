@@ -46,9 +46,7 @@ module MotionForms
           end
         end
       end
-      if opts[:subform]
-        self.subform = Form.new(opts[:subform])
-      end
+      self.subform = Form.new(opts[:subform]) if opts[:subform]
       if opts[:subform_controller]
         self.cell[:on_select] = proc do
           controller = opts[:subform_controller].alloc.initWithStyle(UITableViewStyleGrouped)
@@ -71,12 +69,11 @@ module MotionForms
         cell_instance = klass.alloc.initWithStyle(cell_type, reuseIdentifier:nil)
         Object.apply_hash(cell_instance, cell)
         cell_instance.on_create if cell_instance.respond_to?(:on_create)
-        if action = cell[:on_create]
-          if action.is_a?(Proc)
-            action.call(cell, cell_instance)
-          else
-            self.section.form.controller.send(action) if self.section.form.controller.respond_to?(action)
-          end
+        action = cell[:on_create]
+        if action.is_a?(Proc)
+          action.call(cell, cell_instance)
+        elsif action.is_a?(Symbol) && self.section.form.controller.respond_to?(action)
+          self.section.form.controller.send(action)
         end
         cell_instance
       end
@@ -86,9 +83,7 @@ module MotionForms
       errors = []
       fields.map do |field|
         field_errors = field.errors
-        if field_errors.any?
-          errors << { key: field.key, errors: field_errors}
-        end
+        errors << { key: field.key, errors: field_errors } if field_errors.any?
       end
       errors
     end
@@ -111,7 +106,7 @@ module MotionForms
     def to_field_hash
       hashes = fields.map(&:to_field_hash)
       hashes << subform.to_field_hash if subform
-      hash =hashes.inject({}, &:merge)
+      hash = hashes.inject({}, &:merge)
       key ? { key => hash } : hash
     end
   end
