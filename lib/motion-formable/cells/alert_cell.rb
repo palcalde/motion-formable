@@ -22,7 +22,7 @@
 # /images/cells/alert_cell.gif
 #
 module MotionFormable
-  class AlertCell < BaseCell
+  class AlertCell < MotionFormable::BaseCell
     attr_accessor :options
 
     def update!
