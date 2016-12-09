@@ -1,5 +1,5 @@
 class SubformViewController < UITableViewController
-  include MotionIOSTable::TableHelper
+  include MotionListable::TableHelper
   include MotionFormable::FormHelper
 
   attr_accessor :form

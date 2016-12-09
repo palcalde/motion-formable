@@ -1,5 +1,5 @@
 class ViewController2 < UITableViewController
-  include MotionIOSTable::TableHelper
+  include MotionListable::TableHelper
   include MotionFormable::FormHelper
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i

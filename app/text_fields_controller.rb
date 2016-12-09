@@ -1,5 +1,5 @@
 class TextFieldsController < UITableViewController
-  include MotionIOSTable::TableHelper
+  include MotionListable::TableHelper
   include MotionFormable::FormHelper
 
   def viewDidLoad

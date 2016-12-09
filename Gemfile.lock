@@ -1,12 +1,13 @@
+GIT
+  remote: https://github.com/MarkVillacampa/motion-listable
+  revision: 31e5c5bba3cf3883b861b84c89fd497f9bf21ab4
+  specs:
+    motion-listable (0.0.1)
+
 PATH
   remote: .
   specs:
-    motion-formable (1.0)
-
-PATH
-  remote: ~/src/projects/motion-ios-table
-  specs:
-    motion-ios-table (1.0)
+    motion-formable (0.0.1)
 
 GEM
   remote: https://rubygems.org/
@@ -18,7 +19,7 @@ PLATFORMS
 
 DEPENDENCIES
   motion-formable!
-  motion-ios-table!
+  motion-listable!
   rake
 
 BUNDLED WITH
