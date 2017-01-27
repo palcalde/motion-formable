@@ -1,9 +1,13 @@
 module MotionFormable
   class TableViewHelper
-    attr_accessor :tableView
+    attr_accessor :controller
 
-    def initialize(table_view)
-      self.tableView = table_view
+    def initialize(controller)
+      self.controller = controller
+    end
+
+    def tableView
+      controller.tableView
     end
 
     def insert_row(row, index)

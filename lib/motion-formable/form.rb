@@ -12,7 +12,7 @@ module MotionFormable
         end
       end
       self.controller = opts[:controller]
-      self.table_view_helper = TableViewHelper.new(controller.tableView) if controller
+      self.table_view_helper = TableViewHelper.new(controller) if controller
       self.on_save = opts[:on_save]
     end
 
