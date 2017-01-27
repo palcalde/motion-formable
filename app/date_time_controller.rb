@@ -19,9 +19,9 @@ class DateTimeController < UITableViewController
   end
 
   def validate_form
-    p form.fields
+    p form.to_field_hash
     p form.errors
-    p form.validate!(self.tableView)
+    p form.validate!
   end
 
   def form
