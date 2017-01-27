@@ -45,7 +45,7 @@ module MotionFormable
 
 
     def row_for_index(index)
-      self.sections[index.section].rows[index.row]
+      self.visible_sections[index.section].visible_rows[index.row]
     end
 
     def next_row(row)
@@ -53,10 +53,10 @@ module MotionFormable
       row_index = index.row
       section_index = index.section
 
-      if !(next_row = self.sections[section_index].rows[row_index + 1]).nil?
+      if !(next_row = self.visible_sections[section_index].visible_rows[row_index + 1]).nil?
         next_row
-      elsif !(next_section = self.sections[section_index + 1]).nil?
-        next_section.rows.first
+      elsif !(next_section = self.visible_sections[section_index + 1]).nil?
+        next_section.visible_rows.first
       end
     end
 
@@ -66,9 +66,9 @@ module MotionFormable
       section_index = index.section
 
       if row_index > 0
-        self.sections[section_index].rows[row_index - 1]
+        self.visible_sections[section_index].visible_rows[row_index - 1]
       elsif section_index > 0
-        self.sections[section_index - 1].rows.last
+        self.visible_sections[section_index - 1].visible_rows.last
       end
     end
 
@@ -94,8 +94,8 @@ module MotionFormable
     end
 
     def index_for_row(row)
-      section_index = sections.index(row.section)
-      row_index = row.section.rows.index(row)
+      section_index = visible_sections.index(row.section)
+      row_index = row.section.visible_rows.index(row)
       NSIndexPath.indexPathForRow(row_index, inSection:section_index)
     end
 
@@ -113,15 +113,12 @@ module MotionFormable
     end
 
     def remove_row(row)
-      index = index_for_row(row)
-      self.table_view_helper.remove_row(row, index) if self.table_view_helper
-
+      self.table_view_helper.remove_row(row) if self.table_view_helper
       row.section.rows.delete(row)
     end
 
     def hide_row(row)
-      index = index_for_row(row)
-      self.table_view_helper.remove_row(row, index) if self.table_view_helper
+      self.table_view_helper.remove_row(row) if self.table_view_helper
     end
 
     def insert_section(section, index)
