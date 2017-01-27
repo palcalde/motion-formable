@@ -12,7 +12,8 @@ module MotionFormable
       self.tableView.endUpdates
     end
 
-    def remove_row(row, index)
+    def remove_row(row)
+      index = self.tableView.indexPathForCell(row.cell_instance)
       self.tableView.beginUpdates
       self.tableView.deleteRowsAtIndexPaths([index], withRowAnimation:UITableViewRowAnimationFade)
       self.tableView.endUpdates
