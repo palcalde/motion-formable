@@ -1,6 +1,6 @@
 module MotionFormable
   class Form
-    attr_accessor :sections, :controller, :on_save
+    attr_accessor :sections, :controller, :on_save, :table_view_helper
 
     def initialize(opts = {})
       self.sections = []
@@ -12,6 +12,7 @@ module MotionFormable
         end
       end
       self.controller = opts[:controller]
+      self.table_view_helper = TableViewHelper.new(controller.tableView) if controller
       self.on_save = opts[:on_save]
     end
 
@@ -42,15 +43,6 @@ module MotionFormable
       { sections: visible_sections.map(&:to_table_hash) }
     end
 
-    ################
-    ##### iOS ######
-    ################
-
-    def index_for_row(row)
-      section_index = sections.index(row.section)
-      row_index = row.section.rows.index(row)
-      NSIndexPath.indexPathForRow(row_index, inSection:section_index)
-    end
 
     def row_for_index(index)
       self.sections[index.section].rows[index.row]
@@ -80,49 +72,61 @@ module MotionFormable
       end
     end
 
-    def insert_row(row, index)
-      section = sections[index.section]
-      row[:section] = section
-      row = Row.new(row)
-      section.rows.insert(index.row, row)
-      # insert row in table
-    end
-
-    def remove_row(row)
-      row.section.rows.delete(row)
-      # remove row from table
-    end
-
-    def insert_section(section, index)
-      section[:form] = self
-      section = Section.new(section)
-      sections.insert(index, section)
-      # insert section in table
-    end
-
-    def remove_section(section)
-      sections.delete(section)
-      # remove section from table
-    end
-
-    def move_row(from_index, to_index)
-      from_section = sections[from_index.section]
-      to_section = sections[to_index.section]
-      from_section.rows[from_index.row], to_section.rows[to_index.row] = to_section.rows[to_index.row], from_section.rows[from_index.row]
-      # move row in table
-    end
-
-    def move_section(from_index, to_index)
-      sections[from_index], sections[to_index] = sections[to_index], sections[from_index]
-      # move section in table
-    end
-
     def validate!
       self.sections.each do |section|
         section.visible_rows.each do |row|
           row.cell_instance.validate!
         end
       end
+    end
+
+    def index_for_row(row)
+      section_index = sections.index(row.section)
+      row_index = row.section.rows.index(row)
+      NSIndexPath.indexPathForRow(row_index, inSection:section_index)
+    end
+
+    def insert_row(row, index)
+      section = sections[index.section]
+      row[:section] = section
+      row = Row.new(row)
+      section.rows.insert(index.row, row)
+
+      self.table_view_helper.insert_row(row, index) if self.table_view_helper
+    end
+
+    def remove_row(row)
+      index = index_for_row(row)
+      self.table_view_helper.remove_row(row, index) if self.table_view_helper
+
+      row.section.rows.delete(row)
+    end
+
+    def insert_section(section, index)
+      section[:form] = self
+      section = Section.new(section)
+      sections.insert(index, section)
+
+      self.table_view_helper.insert_section(section, index) if self.table_view_helper
+    end
+
+    def remove_section(section)
+      self.table_view_helper.remove_section(section, sections.index(section)) if self.table_view_helper
+      sections.delete(section)
+    end
+
+    def move_row(from_index, to_index)
+      from_section = sections[from_index.section]
+      to_section = sections[to_index.section]
+      from_section.rows[from_index.row], to_section.rows[to_index.row] = to_section.rows[to_index.row], from_section.rows[from_index.row]
+
+      self.table_view_helper.move_row(from_index, to_index) if self.table_view_helper
+    end
+
+    def move_section(from_index, to_index)
+      sections[from_index], sections[to_index] = sections[to_index], sections[from_index]
+
+      self.table_view_helper.move_section(from_index, to_index) if self.table_view_helper
     end
   end
 end

@@ -1,8 +1,11 @@
 describe 'Form' do
 
+  before do
+    @ccontroller = UITableViewController.alloc.initWithStyle(UITableViewStylePlain)
+  end
+
   it "entities from an entity set can be displayed in several sections" do
     form = MotionFormable::Form.new({
-      controller: self,
       sections: [
         {
           key: :users,
@@ -53,7 +56,6 @@ describe 'Form' do
 
   it "section can contain an entity" do
     form = MotionFormable::Form.new({
-      controller: self,
       sections: [
         {
           key: :user,
@@ -84,7 +86,6 @@ describe 'Form' do
   it "section can contain multiple entities, edited in subforms" do
 
     subform = {
-      controller: self,
       sections: [
         {
           rows: [
@@ -102,7 +103,6 @@ describe 'Form' do
     }
 
     subform2 = {
-      controller: self,
       sections: [
         {
           rows: [
@@ -120,7 +120,6 @@ describe 'Form' do
     }
 
     form = MotionFormable::Form.new({
-      controller: self,
       sections: [
         {
           rows: [
@@ -208,6 +207,7 @@ describe 'Form' do
 
   it "can insert, delete and move rows" do
     form = MotionFormable::Form.new({
+      controller: @ccontroller,
       sections: [
         {
           rows: [
@@ -239,6 +239,7 @@ describe 'Form' do
 
   it "can insert, delete and move sections" do
     form = MotionFormable::Form.new({
+      controller: @ccontroller,
       sections: [
         {
           rows: [
