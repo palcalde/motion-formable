@@ -6,6 +6,10 @@ module MotionFormable
       @data_source ||= (form.to_table_hash if form)
     end
 
+    def update_data_source
+      @data_source = nil
+    end
+
     def row_navigation_done
       self.tableView.endEditing(true)
     end

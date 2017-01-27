@@ -9,14 +9,63 @@ module MotionFormable
                   :disabled,
                   :hidden,
                   :subform,
-                  :key
+                  :key,
+                  :depends_on,
+                  :tag
+
+    def value
+      fields.first.value
+    end
 
     def disabled?
-      !!@disabled
+      @cached_disabled.nil? ? evaluate_disabled : @cached_disabled
+    end
+
+    def evaluate_disabled
+      if @disabled.is_a?(Proc)
+        cached_disabled = !!@disabled.call(self.section.form)
+      else
+        cached_disabled = !!@disabled
+      end
+
+      previous_cached_disabled = @cached_disabled
+      @cached_disabled = cached_disabled
+
+      if previous_cached_disabled != cached_disabled
+        self.cell_instance.update!
+      end
+
+      @cached_disabled
     end
 
     def hidden?
-      !!@hidden
+      @cached_hidden.nil? ? evaluate_hidden : @cached_hidden
+    end
+
+    def evaluate_hidden
+      if @hidden.is_a?(Proc)
+        cached_hidden = !!@hidden.call(self.section.form)
+      else
+        cached_hidden = !!@hidden
+      end
+
+      previous_cached_hidden = @cached_hidden
+      @cached_hidden = cached_hidden
+
+      if previous_cached_hidden == false && cached_hidden == true
+        self.section.form.controller.update_data_source
+        self.section.form.hide_row(self)
+      elsif previous_cached_hidden == true && cached_hidden == false
+        self.section.form.controller.update_data_source
+        index = self.section.form.index_for_row(self)
+        self.section.form.show_row(self, index)
+      end
+
+      @cached_hidden
+    end
+
+    def value_updated(field)
+      self.section.form.update_dependents_of(self.tag) if self.tag
     end
 
     def initialize(opts = {})
@@ -27,6 +76,8 @@ module MotionFormable
       self.title = opts[:title]
       self.disabled = opts[:disabled] || false
       self.hidden = opts[:hidden] || false
+      self.tag = opts[:tag]
+      self.depends_on = opts[:depends_on]
       if opts[:fields]
         opts[:fields].each do |field|
           field[:row] = self

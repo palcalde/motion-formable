@@ -121,7 +121,7 @@ class ViewController < UITableViewController
             {
               textLabel: { text: 'Very basic predicates' },
               accessoryType: UITableViewCellAccessoryDisclosureIndicator,
-              on_select: proc {}
+              on_select: proc { push_controller(BasicDependentController) }
             },
             {
               textLabel: { text: 'Blog Example Hide predicates' },

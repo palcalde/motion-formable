@@ -80,6 +80,19 @@ module MotionFormable
       end
     end
 
+    def row_with_tag(tag)
+      self.sections.map(&:rows).flatten.detect { |r| r.tag == tag }
+    end
+
+    def update_dependents_of(tag)
+      self.sections.map(&:rows).flatten.each do |row|
+        if row.depends_on && row.depends_on.include?(tag)
+          row.evaluate_hidden
+          row.evaluate_disabled
+        end
+      end
+    end
+
     def index_for_row(row)
       section_index = sections.index(row.section)
       row_index = row.section.rows.index(row)
@@ -95,11 +108,20 @@ module MotionFormable
       self.table_view_helper.insert_row(row, index) if self.table_view_helper
     end
 
+    def show_row(row, index)
+      self.table_view_helper.insert_row(row, index) if self.table_view_helper
+    end
+
     def remove_row(row)
       index = index_for_row(row)
       self.table_view_helper.remove_row(row, index) if self.table_view_helper
 
       row.section.rows.delete(row)
+    end
+
+    def hide_row(row)
+      index = index_for_row(row)
+      self.table_view_helper.remove_row(row, index) if self.table_view_helper
     end
 
     def insert_section(section, index)

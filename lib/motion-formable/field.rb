@@ -30,7 +30,8 @@ module MotionFormable
 
     def update_value(value)
       self.value = value
-      row.update!
+      self.row.value_updated(self)
+      value
     end
 
     def errors
