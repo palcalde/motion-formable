@@ -49,12 +49,17 @@ module MotionFormable
         cached_hidden = !!@hidden
       end
 
+      index = nil
+      if @cached_hidden == false
+        index = self.section.form.index_for_row(self)
+      end
+
       previous_cached_hidden = @cached_hidden
       @cached_hidden = cached_hidden
 
       if previous_cached_hidden == false && cached_hidden == true
         self.section.form.controller.update_data_source
-        self.section.form.hide_row(self)
+        self.section.form.hide_row(self, index)
       elsif previous_cached_hidden == true && cached_hidden == false
         self.section.form.controller.update_data_source
         index = self.section.form.index_for_row(self)

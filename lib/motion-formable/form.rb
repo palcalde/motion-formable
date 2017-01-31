@@ -112,13 +112,13 @@ module MotionFormable
       self.table_view_helper.insert_row(row, index) if self.table_view_helper
     end
 
-    def remove_row(row)
-      self.table_view_helper.remove_row(row) if self.table_view_helper
+    def remove_row(row, index)
+      self.table_view_helper.remove_row(row, index) if self.table_view_helper
       row.section.rows.delete(row)
     end
 
-    def hide_row(row)
-      self.table_view_helper.remove_row(row) if self.table_view_helper
+    def hide_row(row, index)
+      self.table_view_helper.remove_row(row, index) if self.table_view_helper
     end
 
     def insert_section(section, index)
