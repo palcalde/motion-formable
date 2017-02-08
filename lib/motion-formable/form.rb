@@ -84,12 +84,10 @@ module MotionFormable
       self.sections.map(&:rows).flatten.detect { |r| r.tag == tag }
     end
 
-    def update_dependents_of(tag)
+    def update
       self.sections.map(&:rows).flatten.each do |row|
-        if row.depends_on && row.depends_on.include?(tag)
-          row.evaluate_hidden
-          row.evaluate_disabled
-        end
+        row.evaluate_hidden
+        row.evaluate_disabled
       end
     end
 

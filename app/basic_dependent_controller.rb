@@ -35,7 +35,6 @@ class BasicDependentController < UITableViewController
               # hidden: proc { |form| form.row_with_tag('first').value != true },
               disabled: proc { |form| form.row_with_tag('first').value != true },
               tag: 'second',
-              depends_on: ['first'],
               title: "hello",
               cell: {
                 class: MotionFormable::TextFieldCell

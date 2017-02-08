@@ -10,7 +10,6 @@ module MotionFormable
                   :hidden,
                   :subform,
                   :key,
-                  :depends_on,
                   :tag
 
     def value
@@ -69,10 +68,6 @@ module MotionFormable
       @cached_hidden
     end
 
-    def value_updated(field)
-      self.section.form.update_dependents_of(self.tag) if self.tag
-    end
-
     def initialize(opts = {})
       self.cell = opts[:cell] || {}
       self.section = opts[:section]
@@ -82,7 +77,6 @@ module MotionFormable
       self.disabled = opts[:disabled] || false
       self.hidden = opts[:hidden] || false
       self.tag = opts[:tag]
-      self.depends_on = opts[:depends_on]
       if opts[:fields]
         opts[:fields].each do |field|
           field[:row] = self
