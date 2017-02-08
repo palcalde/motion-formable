@@ -1,6 +1,6 @@
 module MotionFormable
   class Form
-    attr_accessor :sections, :controller, :on_save, :table_view_helper
+    attr_accessor :sections, :on_save, :interactor, :controller
 
     def initialize(opts = {})
       self.sections = []
@@ -11,8 +11,8 @@ module MotionFormable
           self.sections << klass.new(section)
         end
       end
+      self.interactor = opts[:interactor]
       self.controller = opts[:controller]
-      self.table_view_helper = TableViewHelper.new(controller) if controller
       self.on_save = opts[:on_save]
     end
 
@@ -103,20 +103,20 @@ module MotionFormable
       row = Row.new(row)
       section.rows.insert(index.row, row)
 
-      self.table_view_helper.insert_row(row, index) if self.table_view_helper
+      self.interactor.insert_row(row, index) if self.interactor
     end
 
     def show_row(row, index)
-      self.table_view_helper.insert_row(row, index) if self.table_view_helper
+      self.interactor.insert_row(row, index) if self.interactor
     end
 
     def remove_row(row, index)
-      self.table_view_helper.remove_row(row, index) if self.table_view_helper
+      self.interactor.remove_row(row, index) if self.interactor
       row.section.rows.delete(row)
     end
 
     def hide_row(row, index)
-      self.table_view_helper.remove_row(row, index) if self.table_view_helper
+      self.interactor.remove_row(row, index) if self.interactor
     end
 
     def insert_section(section, index)
@@ -124,11 +124,11 @@ module MotionFormable
       section = Section.new(section)
       sections.insert(index, section)
 
-      self.table_view_helper.insert_section(section, index) if self.table_view_helper
+      self.interactor.insert_section(section, index) if self.interactor
     end
 
     def remove_section(section)
-      self.table_view_helper.remove_section(section, sections.index(section)) if self.table_view_helper
+      self.interactor.remove_section(section, sections.index(section)) if self.interactor
       sections.delete(section)
     end
 
@@ -137,13 +137,13 @@ module MotionFormable
       to_section = sections[to_index.section]
       from_section.rows[from_index.row], to_section.rows[to_index.row] = to_section.rows[to_index.row], from_section.rows[from_index.row]
 
-      self.table_view_helper.move_row(from_index, to_index) if self.table_view_helper
+      self.interactor.move_row(from_index, to_index) if self.interactor
     end
 
     def move_section(from_index, to_index)
       sections[from_index], sections[to_index] = sections[to_index], sections[from_index]
 
-      self.table_view_helper.move_section(from_index, to_index) if self.table_view_helper
+      self.interactor.move_section(from_index, to_index) if self.interactor
     end
   end
 end
